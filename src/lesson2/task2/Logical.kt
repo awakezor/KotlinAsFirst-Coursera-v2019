@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import sun.font.TrueTypeFont
 
 /**
  * Пример
@@ -59,4 +60,13 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    val x = minOf(a,b);
+    val y = minOf(maxOf(a,b),c);
+    return when {
+        (x <= r && y <= s) || (x <= s && y <= r) -> true
+        else -> false
+}
+}
+
+
