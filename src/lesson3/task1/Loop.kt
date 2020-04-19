@@ -2,7 +2,8 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import lesson1.task1.angleInRadian
+import kotlin.math.*
 
 /**
  * Пример
@@ -75,7 +76,14 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var result = 1
+    when {
+        n == 1 || n == 2 -> result = 1;
+        else -> result = fib(n-1) + fib(n-2)
+    }
+    return result
+}
 
 /**
  * Простая
@@ -196,7 +204,34 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var numbToSqr = 1;
+    var nextSquareInARow = 1;
+    var reusableSqr = 1;
+    var quant = 0;
+    var taskResult = 0;
+    var i = 0;
+    while (n > quant) {
+        nextSquareInARow = numbToSqr * numbToSqr;
+        reusableSqr = nextSquareInARow;
+        while (reusableSqr > 0) {
+            reusableSqr /= 10;
+            quant++;
+        };
+        numbToSqr++;
+    }
+    var neededNumber = ((numbToSqr - 1) * (numbToSqr - 1));
+    while (i <= (quant - n)) {
+        taskResult = neededNumber % 10;
+        neededNumber /= 10;
+        i++;
+    }
+    return taskResult
+}
+
+
+
+
 
 /**
  * Сложная
