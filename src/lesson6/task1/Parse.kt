@@ -2,6 +2,10 @@
 
 package lesson6.task1
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+
 /**
  * Пример
  *
@@ -69,7 +73,39 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    var separate: List<String>
+    try {
+        separate = str.split(" ".toRegex()).map { it.trim() }
+        val day = separate[0]?.toIntOrNull();
+        val year = separate[2]?.toIntOrNull();
+        var month: String? = null;
+        when {
+            separate[1] == "января" -> month = "01";
+            separate[1] == "февраля" -> month = "02"
+            separate[1] == "марта" -> month = "03"
+            separate[1] == "апреля" -> month = "04"
+            separate[1] == "мая" -> month = "05"
+            separate[1] == "июня" -> month = "06"
+            separate[1] == "июля" -> month = "07"
+            separate[1] == "августа" -> month = "08"
+            separate[1] == "сентября" -> month = "09"
+            separate[1] == "октября" -> month = "10"
+            separate[1] == "ноября" -> month = "11"
+            separate[1] == "декабря" -> month = "12"
+        }
+        val monthInt = month?.toIntOrNull()
+        val date = String.format("%02d.%02d.%04d", day, monthInt, year)
+        if (day == null || month == null || year == null || day > 31 || (day > 28 && monthInt == 2)) {
+            return ""
+        }
+        return date
+    } catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
+
+}
+
 
 /**
  * Средняя
@@ -81,7 +117,40 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val a = Regex("""^\d{2}(.)\d{2}(.)\d{4}$""").matchEntire(digital)?.value ?: return ""
+    var separate: List<String>
+    try {
+        separate = digital.split(".")
+        val day = separate[0]
+        val year = separate[2]
+        var month: String? = null;
+        when {
+            separate[1] == "01" -> month = "января"
+            separate[1] == "02" -> month = "февраля"
+            separate[1] == "03" -> month = "марта"
+            separate[1] == "04" -> month = "апреля"
+            separate[1] == "05" -> month = "мая"
+            separate[1] == "06" -> month = "июня"
+            separate[1] == "07" -> month = "июля"
+            separate[1] == "08" -> month = "августа"
+            separate[1] == "09" -> month = "сентября"
+            separate[1] == "10" -> month = "октября"
+            separate[1] == "11" -> month = "ноября"
+            separate[1] == "12" -> month = "декабря"
+        }
+        val dayInt = day.toInt()
+        val yearInt = year.toInt()
+        val monthInt = separate[1].toInt()
+        if (month == null || dayInt > 31 || (dayInt > 28 && monthInt == 2)) {
+            return ""
+        }
+        return "$dayInt $month $yearInt"
+    } catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
+
+}
 
 /**
  * Средняя
