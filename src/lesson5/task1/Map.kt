@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import kotlin.collections.*
+
 /**
  * Пример
  *
@@ -147,7 +149,20 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    var mapC: MutableMap<String, String> = mapB.toMutableMap();
+    mapC.putAll(mapA);
+    for ((name, phone) in mapC) {
+        var resultPhone: String;
+        if (name in mapA && name in mapB) {
+            if (mapA.getValue(name) != mapB.getValue(name)) {
+                resultPhone = mapA.getValue(name) + ", " + mapB.getValue(name);
+                mapC.put(name, resultPhone)
+            }
+        }
+    }
+    return mapC
+}
 
 /**
  * Средняя
@@ -201,7 +216,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    return list.groupingBy { it }.eachCount().toMutableMap().filter { it.value !== 1 }
+}
+
 
 /**
  * Средняя
